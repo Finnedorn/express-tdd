@@ -15,7 +15,7 @@ const { test, expect } = require('@jest/globals');
 class Model {
 
     constructor(jsonFile) {
-        this.filePath = path.join(__dirname, jsonFile);
+        this.filePath = path.join("db", jsonFile + ".json");
         this.data = this.read();
     }
 
@@ -32,33 +32,33 @@ class Model {
 }
 
 test('Model dovrebbe essere una classe (crea un istanza della classe Model)', () => {
-    const test = new Model();
+    const test = new Model('users');
     expect(test).toBeInstanceOf(Model);
 });
 
 test('L\'istanza di model dovrebbe richiedere il nome del file json da usare in fase di creazione dell\'istanza', () => {
-    const test = new Model();
+    const test = new Model('users');
     expect(Model).toThrow();
 });
 
 test('L\'istanza di model dovrebbe avere il metodo read', () => {
-    const test = new Model('../db/users.json');
+    const test = new Model('users');
     expect(test).toHaveProperty('read');
 });
 
 test('L\'istanza di model dovrebbe avere il metodo add', () => {
-    const test = new Model('../db/users.json');
+    const test = new Model('users');
     expect(test).toHaveProperty('add');
 });
 
 test('read dovrebbe ritornare un array', () =>{
-    const test = new Model('../db/users.json');
-    const myArr = test.read('../db/users.json');
+    const test = new Model('users');
+    const myArr = test.read('users');
     expect(Array.isArray(myArr)).toBe(true);           
 });
 
 test('add dovrebbe aggiungere un elemento all’array dei dati e ritornare tutta la lista', () =>{
-    const test = new Model('../db/users.json');
+    const test = new Model('users');
     test.add(
         {
             "username": "Daniele",
